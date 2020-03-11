@@ -1,0 +1,31 @@
+# version: 2.0
+# jobs:
+#   build:
+#     docker:
+#       - image: circleci/ruby:2.4.2-jessie-node
+#     steps:
+#       - checkout
+#       - run: echo "Hello Priyanka"
+version: 2
+jobs:
+  hello/hello-build:
+    docker:
+    - image: circleci/ruby:2.4.2-jessie-node
+    steps:
+    - run:
+        command: echo "Hello ${CIRCLE_USERNAME}"
+    - run:
+        command: |-
+          echo "TRIGGERER: ${CIRCLE_USERNAME}"
+          echo "BUILD_NUMBER: ${CIRCLE_BUILD_NUM}"
+          echo "BUILD_URL: ${CIRCLE_BUILD_URL}"
+          echo "BRANCH: ${CIRCLE_BRANCH}"
+          echo "RUNNING JOB: ${CIRCLE_JOB}"
+          echo "JOB PARALLELISM: ${CIRCLE_NODE_TOTAL}"
+          echo "CIRCLE_REPOSITORY_URL: ${CIRCLE_REPOSITORY_URL}"
+        name: Show some of the CircleCI runtime env vars
+workflows:
+  Hello Workflow:
+    jobs:
+    - hello/hello-build
+  version: 2
